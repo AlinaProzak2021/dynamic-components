@@ -1,20 +1,18 @@
 <template>
- 
+  <div><formAdd /></div>
 </template>
 
 <script>
- 
-
+import formAdd from "./components/FormAddCard.vue";
 export default {
   name: "App",
   components: {
-    homePage,
+    formAdd,
   },
 };
 </script>
 
 <style>
- 
 * {
   margin: 0;
   padding: 0;
@@ -26,7 +24,6 @@ body {
 }
 
 #app {
- 
   width: 100%;
   height: 100%;
 }
