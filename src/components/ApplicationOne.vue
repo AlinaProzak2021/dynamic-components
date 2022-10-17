@@ -51,7 +51,9 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
+.back__img:hover{
+  transform: scale(1.2);
+}
 .list-item {
   margin-left: auto;
   margin-right: auto;

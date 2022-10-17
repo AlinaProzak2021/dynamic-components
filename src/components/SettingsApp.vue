@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       optionsThemes: [
-        { id: 0, title: "Светлая тема" },
-        { id: 1, title: "Темная тема " },
+        { id: 0, title: "Тема 1" },
+        { id: 1, title: "Тема 2" },
       ],
       optionsApps: [
         {
@@ -50,14 +50,14 @@ export default {
           title: "Приложение 2",
         },
       ],
-      selectedOptionTheme: "Светлая тема",
+      selectedOptionTheme: "Тема 1",
       selectedOptionApp: "Приложение 1",
       selectedOptionAppValue: "",
-      selectedOptionThemeValue: ""
+      selectedOptionThemeValue: "",
     };
   },
   computed: {
-    ...mapState(["componentNames", "isDarkTheme"]),
+    ...mapState(["componentNames", "theme2", "theme1"]),
   },
   watch: {
     selectedOptionAppValue() {
@@ -66,23 +66,24 @@ export default {
       } else {
         this.setDynamicLeftComponent(this.componentNames.twoApplication);
       }
-    },
-    selectedOptionThemeValue(){
-      if(this.selectedOptionThemeValue === 1){
-        this.setDarkTheme();
-      }
     }
   },
   methods: {
     ...mapMutations([
       "setDynamicLeftComponent",
       "setRightComponentName",
-      "setDarkTheme",
+      "setThemeTwo",
+      "setThemeOne",
     ]),
 
     changeAppsTheme(option) {
       this.selectedOptionTheme = option.title;
-      this.selectedOptionThemeValue = option.id; 
+      this.selectedOptionThemeValue = option.id;
+      if (this.selectedOptionThemeValue === 1) {
+        this.setThemeTwo();
+      } else {
+        this.setThemeOne();
+      }
     },
     changeApp(option) {
       this.selectedOptionApp = option.title;

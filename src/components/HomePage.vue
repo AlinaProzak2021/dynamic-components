@@ -1,10 +1,10 @@
 <template>
   <main class="main-app">
     <div class="app-content">
-      <section class="left-app">
+      <section class="left-app" :class="{ theme2: theme2 }">
         <component :is="currentLeftComponent"></component>
       </section>
-      <section class="right-app">
+      <section class="right-app" :class="{ theme2: theme2 }">
         <component :is="currentRightComponent"></component>
       </section>
     </div>
@@ -26,11 +26,7 @@ export default {
     StartLeftApplication,
   },
   computed: {
-    ...mapState([
-      "currentLeftComponent",
-      "currentRightComponent",
-      "isDarkTheme",
-    ]),
+    ...mapState(["currentLeftComponent", "currentRightComponent", "theme2"]),
   },
 };
 </script>
@@ -71,19 +67,23 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.darkTheme {
-  background-color: black;
+.theme2 {
+  --bacground-color-left-app: #acf2e0;
+  --bacground-color-right-app: #61e7ff;
 }
-
 @media (max-width: 768px) {
   .app-content {
     width: 100%;
+    height: 100%;
   }
   .left-app,
   .right-app {
     width: 80%;
-    min-height: 100%;
+    min-height: 50%;
     margin: 0 auto;
+  }
+  .right-app {
+    max-height: 50%;
   }
 }
 </style>

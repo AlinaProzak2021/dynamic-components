@@ -16,8 +16,8 @@ const store = createStore({
             dynamicLeftComponent: 'OneApplicationLeft',
             currentLeftComponent: 'StartLeftApplication',
             currentRightComponent: 'Configuration',
-            isLightTheme: true,
-            isDarkTheme: false
+            theme1: true,
+            theme2: false
 
         }
 
@@ -39,8 +39,13 @@ const store = createStore({
         setDynamicLeftComponent(state, dynamicLeftComponentName) {
             state.dynamicLeftComponent = dynamicLeftComponentName;
         },
-        setDarkTheme(state) {
-            state.isDarkTheme == true;
+        setThemeTwo(state) {
+            state.theme2 = true;
+            state.theme1 = false;
+        },
+        setThemeOne(state) {
+            state.theme1 = true;
+            state.theme2 = false;
         }
     }
 })
