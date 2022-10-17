@@ -1,9 +1,9 @@
 <template>
-  <homePage />
+ 
 </template>
 
 <script>
-import homePage from "./components/HomePage.vue";
+ 
 
 export default {
   name: "App",
@@ -14,10 +14,7 @@ export default {
 </script>
 
 <style>
-:root {
-  --lightTheme: #fffafa;
-  --darkTheme: #0b0324;
-}
+ 
 * {
   margin: 0;
   padding: 0;
@@ -29,7 +26,7 @@ body {
 }
 
 #app {
-  background-color: var( --lightTheme);
+ 
   width: 100%;
   height: 100%;
 }
