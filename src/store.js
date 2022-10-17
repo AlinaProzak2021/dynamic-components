@@ -15,8 +15,12 @@ const store = createStore({
             },
             dynamicLeftComponent: 'OneApplicationLeft',
             currentLeftComponent: 'StartLeftApplication',
-            currentRightComponent: 'Configuration'
+            currentRightComponent: 'Configuration',
+            isLightTheme: true,
+            isDarkTheme: false
+
         }
+
 
     },
     mutations: {
@@ -34,6 +38,9 @@ const store = createStore({
         },
         setDynamicLeftComponent(state, dynamicLeftComponentName) {
             state.dynamicLeftComponent = dynamicLeftComponentName;
+        },
+        setDarkTheme(state) {
+            state.isDarkTheme == true;
         }
     }
 })

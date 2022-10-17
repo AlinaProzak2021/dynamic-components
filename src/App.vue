@@ -14,12 +14,16 @@ export default {
 
 <style>
 :root {
-  --background-color: #f0f8ff;
   --border-color: #8a2be2;
   --background-color-hover: dodgerblue;
   --text-color-error: #eb4034;
   --text-color-button: white;
+  --bacground-color-left-app: #61e7ff;
+  --bacground-color-right-app: #acf2e0;
+  --text-color: #b4b4b4;
+  --bacground-color-form: #fffefb;
 }
+
 * {
   margin: 0;
   padding: 0;

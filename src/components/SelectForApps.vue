@@ -33,9 +33,9 @@ export default {
     },
     selectedOption: {
       type: String,
-      default(){
-        return "Светлая тема"
-      }
+      default() {
+        return "Светлая тема";
+      },
     },
   },
   data() {
@@ -56,14 +56,14 @@ export default {
   width: 300px;
   position: relative;
   height: 36px;
-  background: #fffefb;
+  background: var(--bacground-color-form);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  color: #b4b4b4;
+  color: var(--text-color);
   cursor: pointer;
   margin: 0 auto;
 }
@@ -78,8 +78,8 @@ export default {
 .arrow {
   width: 8px;
   height: 7px;
-  border-top: 1px solid #b4b4b4;
-  border-right: 1px solid #b4b4b4;
+  border-top: 1px solid var(--text-color);
+  border-right: 1px solid var(--text-color);
   transform: rotate(135deg);
   margin-right: 35px;
 }
@@ -89,7 +89,7 @@ export default {
 .options {
   position: absolute;
   top: 40px;
-  background: #fffefb;
+  background-color: var(--bacground-color-form);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   width: 121.49px;
   z-index: 100;
@@ -100,8 +100,8 @@ export default {
   line-height: 26px;
 }
 .option:hover {
-  background: #8a2be2;
-  color: white;
+  background: var(--border-color);
+  color: var(--text-color);
   transition-duration: 0.7s;
 }
 @media (max-width: 768px) {

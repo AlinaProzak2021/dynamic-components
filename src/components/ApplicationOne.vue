@@ -61,7 +61,7 @@ export default {
   align-items: center;
   padding: 10px;
   border: 1px solid var(--border-color);
-  background-color: var(--background-color);
+  background-color: var(--bacground-color-form);
   margin-bottom: 20px;
 }
 .item-delete {
@@ -83,7 +83,7 @@ export default {
   height: 20px;
   top: 5px;
   left: 14px;
-  background-color: var(--background-color);
+  background-color: var(--bacground-color-form);
 }
 
 .item-delete::before {

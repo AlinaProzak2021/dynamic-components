@@ -53,10 +53,11 @@ export default {
       selectedOptionTheme: "Светлая тема",
       selectedOptionApp: "Приложение 1",
       selectedOptionAppValue: "",
+      selectedOptionThemeValue: ""
     };
   },
   computed: {
-    ...mapState(["componentNames"]),
+    ...mapState(["componentNames", "isDarkTheme"]),
   },
   watch: {
     selectedOptionAppValue() {
@@ -66,12 +67,22 @@ export default {
         this.setDynamicLeftComponent(this.componentNames.twoApplication);
       }
     },
+    selectedOptionThemeValue(){
+      if(this.selectedOptionThemeValue === 1){
+        this.setDarkTheme();
+      }
+    }
   },
   methods: {
-    ...mapMutations(["setDynamicLeftComponent", "setRightComponentName"]),
+    ...mapMutations([
+      "setDynamicLeftComponent",
+      "setRightComponentName",
+      "setDarkTheme",
+    ]),
 
     changeAppsTheme(option) {
       this.selectedOptionTheme = option.title;
+      this.selectedOptionThemeValue = option.id; 
     },
     changeApp(option) {
       this.selectedOptionApp = option.title;

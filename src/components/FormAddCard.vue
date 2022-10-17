@@ -68,7 +68,7 @@ export default {
   width: 400px;
   height: 60px;
   border: 1px solid var(--border-color);
-  background-color: var(--background-color);
+  background-color: var( --bacground-color-form);
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -85,6 +85,7 @@ export default {
   outline: none;
   border: 1px solid var(--border-color);
   font-size: 12px;
+  background-color: var(--bacground-color-form);
 }
 .form-button {
   width: 120px;

@@ -26,7 +26,11 @@ export default {
     StartLeftApplication,
   },
   computed: {
-    ...mapState(["currentLeftComponent", "currentRightComponent"]),
+    ...mapState([
+      "currentLeftComponent",
+      "currentRightComponent",
+      "isDarkTheme",
+    ]),
   },
 };
 </script>
@@ -56,17 +60,21 @@ export default {
   margin: 0 auto;
 }
 .left-app {
-  background-color: #61e7ff;
+  background-color: var(--bacground-color-left-app);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .right-app {
-  background-color: #acf2e0;
+  background-color: var(--bacground-color-right-app);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.darkTheme {
+  background-color: black;
+}
+
 @media (max-width: 768px) {
   .app-content {
     width: 100%;
