@@ -1,18 +1,25 @@
 <template>
-  <div><formAdd /></div>
+  <div id="app"><Home /></div>
 </template>
 
 <script>
-import formAdd from "./components/FormAddCard.vue";
+import Home from "./components/HomePage.vue";
 export default {
   name: "App",
   components: {
-    formAdd,
+    Home,
   },
 };
 </script>
 
 <style>
+:root {
+  --background-color: #f0f8ff;
+  --border-color: #8a2be2;
+  --background-color-hover: dodgerblue;
+  --text-color-error: #eb4034;
+  --text-color-button: white;
+}
 * {
   margin: 0;
   padding: 0;
