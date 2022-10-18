@@ -1,11 +1,11 @@
 <template>
   <div class="configuration-container">
-    <img
+    <div
+      class="back-to-start-app"
       @click="setRightComponentName(componentNames.configurationApp)"
-      class="back__img"
-      src="../../resources/back.png"
-      alt=""
-    />
+    >
+      <img class="back__img" src="../../resources/back.png" alt="" />
+    </div>
     <div class="select-settings">
       <h3 class="configuration-title">Вы можете выбрать тему и приложение</h3>
       <section class="configuration-select">
@@ -57,7 +57,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["componentNames", "theme2", "theme1"]),
+    ...mapState(["componentNames", "themes"]),
   },
   watch: {
     selectedOptionAppValue() {
@@ -66,24 +66,25 @@ export default {
       } else {
         this.setDynamicLeftComponent(this.componentNames.twoApplication);
       }
-    }
+    },
+    selectedOptionThemeValue() {
+      if (this.selectedOptionThemeValue == 0) {
+        this.setCurrentTheme(this.themes.theme1);
+      } else {
+        this.setCurrentTheme(this.themes.theme2);
+      }
+    },
   },
   methods: {
     ...mapMutations([
       "setDynamicLeftComponent",
       "setRightComponentName",
-      "setThemeTwo",
-      "setThemeOne",
+      "setCurrentTheme",
     ]),
 
     changeAppsTheme(option) {
       this.selectedOptionTheme = option.title;
       this.selectedOptionThemeValue = option.id;
-      if (this.selectedOptionThemeValue === 1) {
-        this.setThemeTwo();
-      } else {
-        this.setThemeOne();
-      }
     },
     changeApp(option) {
       this.selectedOptionApp = option.title;

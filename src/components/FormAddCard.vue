@@ -17,7 +17,7 @@
         Добавить
       </button>
     </form>
-    <div class="form-isNotValid" v-if="isSecondWordEmpty && errorMessage">
+    <div class="form-isNotValid" v-if="isSecondWordEmpty">
       Второе слово не должно быть пустой строкой
     </div>
   </div>
@@ -59,7 +59,6 @@ export default {
     isDisplayErrorMessage() {
       return this.errorMessage;
     },
-    
   },
 };
 </script>
@@ -68,7 +67,7 @@ export default {
   width: 400px;
   height: 60px;
   border: 1px solid var(--border-color);
-  background-color: var( --bacground-color-form);
+  background-color: var(--bacground-color-form);
   border-radius: 5px;
   display: flex;
   align-items: center;

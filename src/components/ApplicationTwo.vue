@@ -1,10 +1,10 @@
 <template>
-  <img
+  <div
+    class="back-to-start-app"
     @click="setLeftComponentName(componentNames.playleftApp)"
-    class="back__img"
-    src="../../resources/back.png"
-    alt=""
-  />
+  >
+    <img class="back__img" src="../../resources/back.png" alt="" />
+  </div>
   <h1>2</h1>
 </template>
 <script>
@@ -21,6 +21,5 @@ export default {
 <style>
 h1 {
   font-size: 96px;
- 
 }
 </style>

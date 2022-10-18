@@ -1,17 +1,20 @@
 <template>
   <main class="main-app">
     <div class="app-content">
-      <section class="left-app" :class="{ theme2: theme2 }">
-        <component :is="currentLeftComponent"></component>
+      <section class="left-app" :class="[currentTheme]">
+        <component :is="currentComponentNames.currentLeftComponent"></component>
       </section>
-      <section class="right-app" :class="{ theme2: theme2 }">
-        <component :is="currentRightComponent"></component>
+      <section class="right-app" :class="[currentTheme]">
+        <component
+          :is="currentComponentNames.currentRightComponent"
+        ></component>
       </section>
     </div>
   </main>
 </template>
 <script>
 import { mapState } from "vuex";
+import ProvideTheme from "./provideThemes.vue";
 import OneApplicationLeft from "./ApplicationOne.vue";
 import TwoApplicationLeft from "./ApplicationTwo.vue";
 import Configuration from "./ConfigurationApps.vue";
@@ -24,9 +27,10 @@ export default {
     Configuration,
     SettingApp,
     StartLeftApplication,
+    ProvideTheme,
   },
   computed: {
-    ...mapState(["currentLeftComponent", "currentRightComponent", "theme2"]),
+    ...mapState(["currentComponentNames", "currentTheme"]),
   },
 };
 </script>
@@ -37,13 +41,19 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .app-content {
   width: 80%;
   min-height: 80%;
-  -webkit-box-shadow: 4px 4px 15px 0px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 4px 4px 15px 0px rgba(34, 60, 80, 0.2);
-  box-shadow: 4px 4px 15px 0px rgba(34, 60, 80, 0.2);
+  -webkit-box-shadow: 0px 4px 53px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 53px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 53px 2px rgba(34, 60, 80, 0.2);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -51,10 +61,13 @@ export default {
 .left-app,
 .right-app {
   width: 50%;
-  min-height: 100%;
   min-width: 350px;
   margin: 0 auto;
 }
+/* врапается при наведении, что-то с шириной */
+/* .left-app:hover{
+  border: 2px solid var(--background-color-hover);
+} */
 .left-app {
   background-color: var(--bacground-color-left-app);
   display: flex;
@@ -67,23 +80,17 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.theme2 {
-  --bacground-color-left-app: #acf2e0;
-  --bacground-color-right-app: #61e7ff;
-}
 @media (max-width: 768px) {
+  .main-app {
+    display: block;
+  }
   .app-content {
     width: 100%;
-    height: 100%;
+ 
   }
   .left-app,
   .right-app {
-    width: 80%;
-    min-height: 50%;
     margin: 0 auto;
-  }
-  .right-app {
-    max-height: 50%;
   }
 }
 </style>

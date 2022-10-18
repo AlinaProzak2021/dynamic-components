@@ -13,7 +13,7 @@ import { mapMutations, mapState } from "vuex";
 export default {
   name: "start-left-app",
   computed: {
-    ...mapState(["dynamicLeftComponent"])
+    ...mapState(["dynamicLeftComponent", "currentTheme"])
   },
   methods: {
     ...mapMutations(["setLeftComponentName"])

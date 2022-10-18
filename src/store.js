@@ -1,27 +1,17 @@
 import {
     createStore
 } from 'vuex'
-
+import componentNames from "../resources/componentNames.json"
 const store = createStore({
     state() {
         return {
             cardList: [],
-            componentNames: {
-                playleftApp: 'StartLeftApplication',
-                configurationApp: 'Configuration',
-                oneApplication: 'OneApplicationLeft',
-                twoApplication: 'TwoApplicationLeft',
-                settingsApplication: 'SettingApp'
-            },
-            dynamicLeftComponent: 'OneApplicationLeft',
-            currentLeftComponent: 'StartLeftApplication',
-            currentRightComponent: 'Configuration',
-            theme1: true,
-            theme2: false
-
+            componentNames: componentNames.componentName,
+            currentComponentNames: componentNames.currentComponentNames,
+            dynamicLeftComponent: componentNames.dynamicLeftComponent,
+            themes : componentNames.themes,
+            currentTheme: "theme1"
         }
-
-
     },
     mutations: {
         addCardToList(state, newCard) {
@@ -31,21 +21,16 @@ const store = createStore({
             state.cardList.splice(index, 1)
         },
         setRightComponentName(state, rightComponentName) {
-            state.currentRightComponent = rightComponentName;
+            state.currentComponentNames.currentRightComponent = rightComponentName;
         },
         setLeftComponentName(state, leftComponentName) {
-            state.currentLeftComponent = leftComponentName
+            state.currentComponentNames.currentLeftComponent = leftComponentName
         },
         setDynamicLeftComponent(state, dynamicLeftComponentName) {
             state.dynamicLeftComponent = dynamicLeftComponentName;
         },
-        setThemeTwo(state) {
-            state.theme2 = true;
-            state.theme1 = false;
-        },
-        setThemeOne(state) {
-            state.theme1 = true;
-            state.theme2 = false;
+        setCurrentTheme(state, theme) {
+            state.currentTheme = theme;
         }
     }
 })

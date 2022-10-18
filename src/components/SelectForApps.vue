@@ -33,9 +33,6 @@ export default {
     },
     selectedOption: {
       type: String,
-      default() {
-        return "Светлая тема";
-      },
     },
   },
   data() {
@@ -101,7 +98,7 @@ export default {
 }
 .option:hover {
   background: var(--border-color);
-  color: var(--text-color);
+  color: var( --text-coloe-primary);
   transition-duration: 0.7s;
 }
 @media (max-width: 768px) {

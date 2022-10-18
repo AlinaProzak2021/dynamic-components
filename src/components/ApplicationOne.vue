@@ -1,15 +1,15 @@
 <template>
   <div class="one-left-app">
-    <img
+    <div
+      class="back-to-start-app"
       @click="setLeftComponentName(componentNames.playleftApp)"
-      class="back__img"
-      src="../../resources/back.png"
-      alt=""
-    />
+    >
+      <img class="back__img" src="../../resources/back.png" alt="" />
+    </div>
     <formAdd />
-    <ul class="list" v-for="(cardItem, index) in cardList" :key="index">
-      <li class="list-item">
-        {{ doFirstLetterToUpperCase(cardItem) }}
+    <ul class="cards-list">
+      <li class="list-item" v-for="(cardItem, index) in cardList" :key="index">
+        {{ changeRegisterFirstLetterToUpperCase(cardItem) }}
         <div @click="deleteCard(index)" class="item-delete"></div>
       </li>
     </ul>
@@ -23,12 +23,13 @@ export default {
     formAdd,
   },
   methods: {
-    doFirstLetterToUpperCase(cardItem) {
-      let firstWord = cardItem.split(" ").slice(0, 1);
-      let secondWord = cardItem.split(" ").slice(1);
-      firstWord = firstWord[0][0].toUpperCase() + firstWord[0].substring(1);
-      secondWord = secondWord[0][0].toUpperCase() + secondWord[0].substring(1);
-      return firstWord + " " + secondWord;
+    changeRegisterFirstLetterToUpperCase(cardItem) {
+      let resultString = cardItem.split(" ");
+      for (let item = 0; item < resultString.length; item++) {
+        resultString[item] =
+          resultString[item][0].toUpperCase() + resultString[item].substr(1);
+      }
+      return resultString.join(" ");
     },
     ...mapMutations(["deleteCard", "setLeftComponentName"]),
   },
@@ -44,15 +45,28 @@ export default {
   flex-direction: column;
   --background-color-delete: #ff0000;
 }
-.back__img {
+.back-to-start-app {
   width: 50px;
   height: 50px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.back__img:hover{
+.back-to-start-app:hover {
   transform: scale(1.2);
+}
+.back__img {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.back__img:hover {
+  transform: scale(1.2);
+}
+.cards-list {
+  max-height: 250px;
+  overflow: auto;
 }
 .list-item {
   margin-left: auto;
@@ -113,7 +127,7 @@ export default {
 }
 @media (max-width: 768px) {
   .list-item {
-    width: 180px;
+    width: 260px;
     height: 20px;
     border: none;
     border-radius: 0;

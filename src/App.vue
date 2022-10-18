@@ -23,10 +23,7 @@ export default {
   --text-color: #b4b4b4;
   --bacground-color-form: #fffefb;
 }
-.darkTheme {
-  --bacground-color-left-app: #acf2e0;
-  --bacground-color-right-app: #61e7ff;
-}
+
 
 * {
   margin: 0;
