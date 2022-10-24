@@ -1,20 +1,18 @@
 <template>
   <main class="main-app">
     <div class="app-content">
-      <section class="left-app" :class="[currentTheme]">
-        <component :is="currentComponentNames.currentLeftComponent"></component>
+      <section class="left-app">
+        <component :is="currentLeftComponent"></component>
       </section>
-      <section class="right-app" :class="[currentTheme]">
-        <component
-          :is="currentComponentNames.currentRightComponent"
-        ></component>
+      <section class="right-app">
+        <component :is="currentRightComponent"></component>
       </section>
     </div>
   </main>
 </template>
 <script>
 import { mapState } from "vuex";
-import ProvideTheme from "./provideThemes.vue";
+import ProvideTheme from "./ThemeProvider.vue";
 import OneApplicationLeft from "./ApplicationOne.vue";
 import TwoApplicationLeft from "./ApplicationTwo.vue";
 import Configuration from "./ConfigurationApps.vue";
@@ -30,7 +28,7 @@ export default {
     ProvideTheme,
   },
   computed: {
-    ...mapState(["currentComponentNames", "currentTheme"]),
+    ...mapState(["currentRightComponent", "currentLeftComponent"]),
   },
 };
 </script>
@@ -64,18 +62,18 @@ export default {
   min-width: 350px;
   margin: 0 auto;
 }
-/* врапается при наведении, что-то с шириной */
-/* .left-app:hover{
-  border: 2px solid var(--background-color-hover);
-} */
+.left-app:hover,
+.right-app:hover {
+  outline: 2px solid var(--background-color-hover);
+}
 .left-app {
-  background-color: var(--bacground-color-left-app);
+  background-color: var(--background-color-left-app);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .right-app {
-  background-color: var(--bacground-color-right-app);
+  background-color: var(--background-color-right-app);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,7 +84,6 @@ export default {
   }
   .app-content {
     width: 100%;
- 
   }
   .left-app,
   .right-app {

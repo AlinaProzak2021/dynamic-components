@@ -4,7 +4,7 @@
       class="back-to-start-app"
       @click="setRightComponentName(componentNames.configurationApp)"
     >
-      <img class="back__img" src="../../resources/back.png" alt="" />
+      <img class="back-img" src="../../resources/back.png" alt="" />
     </div>
     <div class="select-settings">
       <h3 class="configuration-title">Вы можете выбрать тему и приложение</h3>
@@ -29,6 +29,8 @@
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
+import optionsThemes from "../../dataset.js";
+import optionsApps from "../../dataset.js";
 import selectOption from "./SelectForApps.vue";
 export default {
   components: {
@@ -36,20 +38,8 @@ export default {
   },
   data() {
     return {
-      optionsThemes: [
-        { id: 0, title: "Тема 1" },
-        { id: 1, title: "Тема 2" },
-      ],
-      optionsApps: [
-        {
-          id: 0,
-          title: "Приложение 1",
-        },
-        {
-          id: 1,
-          title: "Приложение 2",
-        },
-      ],
+      optionsThemes: optionsThemes.optionsThemes,
+      optionsApps: optionsApps.optionsApps,
       selectedOptionTheme: "Тема 1",
       selectedOptionApp: "Приложение 1",
       selectedOptionAppValue: "",
@@ -57,7 +47,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["componentNames", "themes"]),
+    ...mapState(["componentNames", "selectedTheme", "themes"]),
   },
   watch: {
     selectedOptionAppValue() {
@@ -69,9 +59,9 @@ export default {
     },
     selectedOptionThemeValue() {
       if (this.selectedOptionThemeValue == 0) {
-        this.setCurrentTheme(this.themes.theme1);
+        this.setSelectedTheme(this.themes.defaultTheme);
       } else {
-        this.setCurrentTheme(this.themes.theme2);
+        this.setSelectedTheme(this.themes.oppositeTheme);
       }
     },
   },
@@ -79,9 +69,8 @@ export default {
     ...mapMutations([
       "setDynamicLeftComponent",
       "setRightComponentName",
-      "setCurrentTheme",
+      "setSelectedTheme",
     ]),
-
     changeAppsTheme(option) {
       this.selectedOptionTheme = option.title;
       this.selectedOptionThemeValue = option.id;

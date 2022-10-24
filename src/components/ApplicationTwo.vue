@@ -3,7 +3,7 @@
     class="back-to-start-app"
     @click="setLeftComponentName(componentNames.playleftApp)"
   >
-    <img class="back__img" src="../../resources/back.png" alt="" />
+    <img class="back-img" src="../../resources/back.png" alt="" />
   </div>
   <h1>2</h1>
 </template>
@@ -20,6 +20,7 @@ export default {
 </script>
 <style>
 h1 {
+  color: var(--color-text-left-app);
   font-size: 96px;
 }
 </style>

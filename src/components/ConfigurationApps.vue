@@ -30,10 +30,10 @@ export default {
 .right-app-img {
   width: 130px;
   height: 130px;
-  transition: 4s;
+  transition: var(--transition-sec);
 }
 .right-app-img:hover {
-  transform: rotate(360deg);
+  transform: rotate(calc(var(--transform-rotate) * 6));
 }
 @media (max-width: 1024px) {
   .right-app-img {

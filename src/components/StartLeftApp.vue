@@ -21,21 +21,22 @@ export default {
 };
 </script>
 <style>
+
 .start-left-app {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 1.5s;
+  transition: var(--transition-sec);
 }
 .left-app-img {
   width: 200px;
   height: 200px;
-  transition: 0.2s;
+  transition: var(--transition-sec);
 }
 .left-app-img:hover {
-  transform: scale(1.3);
+  transform: scale(var(--transform-scale));
 }
 @media (max-width: 1024px) {
   .left-app-img {

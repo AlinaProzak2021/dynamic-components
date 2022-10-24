@@ -53,14 +53,14 @@ export default {
   width: 300px;
   position: relative;
   height: 36px;
-  background: var(--bacground-color-form);
+  background: var(--background-color-right-app-element);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  color: var(--text-color);
+  color: var(--color-text-right-app);
   cursor: pointer;
   margin: 0 auto;
 }
@@ -75,9 +75,9 @@ export default {
 .arrow {
   width: 8px;
   height: 7px;
-  border-top: 1px solid var(--text-color);
-  border-right: 1px solid var(--text-color);
-  transform: rotate(135deg);
+  border-top: 1px solid var(--border-color-right-app);
+  border-right: 1px solid var(--border-color-right-app);
+  transform: rotate(calc(var(--transform-rotate)*3));
   margin-right: 35px;
 }
 .selected-option {
@@ -86,7 +86,7 @@ export default {
 .options {
   position: absolute;
   top: 40px;
-  background-color: var(--bacground-color-form);
+  background-color: var(--background-color-right-app-element);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   width: 121.49px;
   z-index: 100;
@@ -97,9 +97,9 @@ export default {
   line-height: 26px;
 }
 .option:hover {
-  background: var(--border-color);
-  color: var( --text-coloe-primary);
-  transition-duration: 0.7s;
+  background: var(--border-color-right-app);
+  color: var(--color-text-right-app-hover);
+  transition-duration: var(--transition-sec);
 }
 @media (max-width: 768px) {
   .v-select {
