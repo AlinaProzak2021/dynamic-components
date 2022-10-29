@@ -24,14 +24,24 @@
       </form>
     </div>
     <div
-      v-if="isStrContainTwoWords == false && isEmptyInputString == false"
+      v-if="stringContainOnlyWords == false && isEmptyInputString == false"
       class="form-isNotValid"
     >
-      Строка должна содержать 2 слова!
+      Строка должна содержать только буквы
     </div>
+    <div
+      v-if="isEmptyInputString == false && isStringContainTwoWords == false"
+      class="form-isNotValid"
+    >
+      Строка должна содержать 2 слова
+    </div>
+    <div v-if="isValidInputString == false" class="form-isNotValid">
+      Пожалуйста введите валидные данные
+    </div>
+
     <ul class="cards-list">
       <li class="list-item" v-for="(cardItem, index) in cardList" :key="index">
-        {{ getStrFirstLettersUpperCase(cardItem) }}
+        {{ conversionString(cardItem) }}
         <div @click="deleteCard(index)" class="item-delete"></div>
       </li>
     </ul>
@@ -39,76 +49,57 @@
 </template>
 <script>
 import { mapState, mapMutations } from "vuex";
-
 export default {
   data() {
     return {
       inputString: "",
-      errorMessage: false,
+      isValidInputString: true,
     };
   },
+  mounted() {
+    if (localStorage.inputString) this.inputString = localStorage.inputString;
+  },
   methods: {
-    getStrFirstLettersUpperCase(inputString) {
-      inputString = this.getInputStringToLowerCase(inputString);
-      let strFirstLetterUpCase = this.getSplitString(inputString);
-      this.doAllFirstLetterToUpperCase(strFirstLetterUpCase);
-      return this.getJoinString(strFirstLetterUpCase);
-    },
     ...mapMutations(["deleteCard", "setLeftComponentName", "addCardToList"]),
     addCard(inputString) {
-      if (this.isStrContainTwoWords) {
+      if (this.isValidString == false) {
+        this.isValidInputString = false;
+      } else {
         this.addCardToList(inputString);
         this.clearInputField();
       }
     },
-    getInputStringToLowerCase(inputString) {
-      return inputString.toLowerCase();
-    },
-    getSplitString(inputString) {
-      return this.getStrWithoutEmptyStrBegininEnd(inputString).split(" ");
-    },
-    getJoinString(inputString) {
-      return inputString.join(" ");
-    },
-    doAllFirstLetterToUpperCase(arrayString) {
-      for (
-        let indexString = 0;
-        indexString < arrayString.length;
-        indexString++
-      ) {
-        arrayString[indexString] =
-          arrayString[indexString][0].toUpperCase() +
-          arrayString[indexString].substr(1);
-      }
-    },
-    getStrWithoutEmptyStrBegininEnd(string) {
-      return string.trim(" ");
-    },
-    getNumberEmptyStringInArrayString(arrayString) {
-      let numberEmptyString = 0;
-      for (
-        let indexElement = 0;
-        indexElement < arrayString.length;
-        indexElement++
-      ) {
-        if (arrayString[indexElement] == "") {
-          numberEmptyString++;
-        }
-      }
-      return numberEmptyString;
-    },
-    getLengthArrayStrwithoutEmptyStr(arrayString) {
-      return (
-        arrayString.length - this.getNumberEmptyStringInArrayString(arrayString)
-      );
-    },
-    isNotTwoWords(arrayString) {
-      if (this.getLengthArrayStrwithoutEmptyStr(arrayString) == 2) {
-        return false;
-      }
-    },
     clearInputField() {
       this.inputString = "";
+    },
+    removeExtraSpacesInString(inputString) {
+      return inputString.replace(/\s+/g, " ");
+    },
+    convertStringToArray(inputString) {
+      return this.removeExtraSpacesInString(inputString).trim().split(" ");
+    },
+    conversionString(inputString) {
+      inputString = this.convertStringToArray(inputString);
+      let convertString = [];
+      inputString.forEach((element) => {
+        element = element.toLowerCase();
+        element = this.capitalize(element);
+        convertString.push(element);
+      });
+      return convertString.join(" ");
+    },
+    capitalize(string) {
+      return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+    },
+    isTwowords() {
+      if (
+        this.convertStringToArray(this.inputString).length == 2 &&
+        this.convertStringToArray(this.inputString)[1] !== ""
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
   computed: {
@@ -116,11 +107,24 @@ export default {
     isEmptyInputString() {
       return this.inputString == "";
     },
-    // isStringContainsOnlyLetters() {
-    //   return /^[A-Z]+$/i.test(this.inputString);
-    // },
-    isStrContainTwoWords() {
-      return this.isNotTwoWords(this.getSplitString(this.inputString)) == false;
+    stringContainOnlyWords() {
+      return /^[A-zА-яЁё\s]+$/i.test(this.inputString);
+    },
+    isStringContainTwoWords() {
+      return this.isTwowords();
+    },
+    isValidString() {
+      return this.stringContainOnlyWords && this.isStringContainTwoWords;
+    },
+  },
+  watch: {
+    isValidString() {
+      if (this.isValidString) {
+        this.isValidInputString = true;
+      }
+    },
+    inputString(newString) {
+      localStorage.inputString = newString;
     },
   },
 };

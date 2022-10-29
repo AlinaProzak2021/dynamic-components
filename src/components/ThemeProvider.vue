@@ -36,20 +36,20 @@ export default {
   --negative-transform-rotate: -45deg;
 }
 .oppositeTheme {
-  --background-color-left-app: #acf2e0;
-  --background-color-right-app: #61e7ff;
+  --background-color-left-app: #40E0D0;
+  --background-color-right-app: #FFB6C1;
   --color-text-left-app: black;
   --color-text-title-right-app: black;
   --color-text-right-app: black;
   --color-text-right-app-hover: white;
   --background-color-right-app-element: white;
   --background-color-left-app-element: #fffefb;
-  --border-color-left-app: #8a2be2;
-  --border-color-right-app: #8a2be2;
+  --border-color-left-app:  #48D1CC;
+  --border-color-right-app: #1E90FF;
   --transition-sec: 0.3s;
   --transform-scale: 1.2;
   --text-color-error-message: #eb4034;
-  --background-color-hover: dodgerblue;
+  --background-color-hover: #40E0D0;
   --text-color-button: white;
   --transform-rotate: 45deg;
   --negative-transform-rotate: -45deg;

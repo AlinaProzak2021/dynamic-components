@@ -38,7 +38,6 @@ const store = createStore({
         setSelectedTheme(state, selectedTheme) {
             state.selectedTheme = selectedTheme
         }
-
     }
 })
 export default store;
