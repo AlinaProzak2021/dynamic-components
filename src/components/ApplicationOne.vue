@@ -23,25 +23,12 @@
         </button>
       </form>
     </div>
-    <div
-      v-if="stringContainOnlyWords == false && isEmptyInputString == false"
-      class="form-isNotValid"
-    >
-      Строка должна содержать только буквы
-    </div>
-    <div
-      v-if="isEmptyInputString == false && isStringContainTwoWords == false"
-      class="form-isNotValid"
-    >
-      Строка должна содержать 2 слова
-    </div>
-    <div v-if="isValidInputString == false" class="form-isNotValid">
-      Пожалуйста введите валидные данные
-    </div>
-
+    <p class="form-isNotValid" v-for="(error, index) in currentErrors" :key="index">
+      {{ error }}
+    </p>
     <ul class="cards-list">
       <li class="list-item" v-for="(cardItem, index) in cardList" :key="index">
-        {{ conversionString(cardItem) }}
+        {{ stringNormalization(cardItem) }}
         <div @click="deleteCard(index)" class="item-delete"></div>
       </li>
     </ul>
@@ -53,78 +40,74 @@ export default {
   data() {
     return {
       inputString: "",
-      isValidInputString: true,
     };
-  },
-  mounted() {
-    if (localStorage.inputString) this.inputString = localStorage.inputString;
   },
   methods: {
     ...mapMutations(["deleteCard", "setLeftComponentName", "addCardToList"]),
     addCard(inputString) {
-      if (this.isValidString == false) {
-        this.isValidInputString = false;
-      } else {
-        this.addCardToList(inputString);
-        this.clearInputField();
+      if (!this.isInputValid) {
+        return;
       }
+      this.addCardToList(inputString);
     },
     clearInputField() {
       this.inputString = "";
     },
-    removeExtraSpacesInString(inputString) {
-      return inputString.replace(/\s+/g, " ");
-    },
-    convertStringToArray(inputString) {
-      return this.removeExtraSpacesInString(inputString).trim().split(" ");
-    },
-    conversionString(inputString) {
-      inputString = this.convertStringToArray(inputString);
-      let convertString = [];
-      inputString.forEach((element) => {
-        element = element.toLowerCase();
-        element = this.capitalize(element);
-        convertString.push(element);
-      });
-      return convertString.join(" ");
-    },
+    //Изменить регистр первого символа на верхний
     capitalize(string) {
       return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     },
-    isTwowords() {
-      if (
-        this.convertStringToArray(this.inputString).length == 2 &&
-        this.convertStringToArray(this.inputString)[1] !== ""
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+    // удаление пустых строк в строке
+    removeEmptyStrings(inputString) {
+      return inputString.replace(/\s+/g, " ").trim();
+    },
+    //Преобразование строки в массив строк
+    convertStringToArray(inputString) {
+      return this.removeEmptyStrings(inputString).split(" ");
+    },
+    stringNormalization(inputString) {
+      let stringArray = this.convertStringToArray(inputString);
+      let normalizationString = [];
+      stringArray.forEach((stringArrayItem) => {
+        let lowered = stringArrayItem.toLowerCase();
+        let capitalised = this.capitalize(lowered);
+        normalizationString.push(capitalised);
+      });
+      return normalizationString.join(" ");
     },
   },
+
   computed: {
     ...mapState(["cardList", "componentNames"]),
     isEmptyInputString() {
       return this.inputString == "";
     },
-    stringContainOnlyWords() {
+    // Проверка на 2 слова
+    isTwoWords() {
+      return this.convertStringToArray(this.inputString).length === 2;
+    },
+    // Проверка на запрещенные символы
+    stringContainOnlyLetters() {
       return /^[A-zА-яЁё\s]+$/i.test(this.inputString);
     },
-    isStringContainTwoWords() {
-      return this.isTwowords();
+    isInputValid() {
+      return (
+        this.stringContainOnlyLetters &&
+        this.isTwoWords &&
+        !this.isEmptyInputString
+      );
     },
-    isValidString() {
-      return this.stringContainOnlyWords && this.isStringContainTwoWords;
-    },
-  },
-  watch: {
-    isValidString() {
-      if (this.isValidString) {
-        this.isValidInputString = true;
+    currentErrors() {
+      let errorArray = [];
+      if (!this.isEmptyInputString) {
+        if (!this.isTwoWords) {
+          errorArray.push("Строка должна содержать два слова!");
+        }
+        if (!this.stringContainOnlyLetters) {
+          errorArray.push("Строка должна содержать только буквы");
+        }
       }
-    },
-    inputString(newString) {
-      localStorage.inputString = newString;
+      return errorArray;
     },
   },
 };

@@ -2,7 +2,9 @@
   <main class="main-app">
     <div class="app-content">
       <section class="left-app">
-        <component :is="currentLeftComponent"></component>
+        <KeepAlive>
+          <component :is="currentLeftComponent"></component>
+        </KeepAlive>
       </section>
       <section class="right-app">
         <component :is="currentRightComponent"></component>
@@ -61,7 +63,12 @@ export default {
   width: 50%;
   min-width: 350px;
   margin: 0 auto;
+  z-index: 2;
 }
+.left-app {
+  z-index: 3;
+}
+
 .left-app:hover,
 .right-app:hover {
   outline: 2px solid var(--background-color-hover);
