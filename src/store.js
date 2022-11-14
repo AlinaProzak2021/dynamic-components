@@ -3,6 +3,7 @@ import {
 } from 'vuex'
 import themes from "../json resources/themes.json"
 import componentNames from "../json resources/componentNames.json"
+import errors from "../json resources/errors.json"
 const store = createStore({
     state() {
         return {
@@ -11,9 +12,10 @@ const store = createStore({
             currentRightComponent: componentNames.configurationApp,
             currentLeftComponent: componentNames.playleftApp,
             dynamicLeftComponent: componentNames.oneApplication,
-            themes: themes,
+            themes,
             currentTheme: themes.defaultTheme,
-            selectedTheme: ''
+            selectedTheme: '',
+            errors
         }
     },
     mutations: {

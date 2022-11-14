@@ -3,7 +3,7 @@
     class="back-to-start-app"
     @click="setLeftComponentName(componentNames.playleftApp)"
   >
-    <img class="back-img" src="../../resources/back.png" alt="" />
+    <img class="back-img" src="../../../resources/back.png" alt="" />
   </div>
   <h1>2</h1>
 </template>

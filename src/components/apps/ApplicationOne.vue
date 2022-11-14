@@ -4,7 +4,7 @@
       class="back-to-start-app"
       @click="setLeftComponentName(componentNames.playleftApp)"
     >
-      <img class="back-img" src="../../resources/back.png" alt="" />
+      <img class="back-img" src="../../../resources/back.png" alt="" />
     </div>
     <div class="form-container">
       <form class="form-add" @submit.prevent="addCard(inputString)">
@@ -23,7 +23,11 @@
         </button>
       </form>
     </div>
-    <p class="form-isNotValid" v-for="(error, index) in currentErrors" :key="index">
+    <p
+      class="form-isNotValid"
+      v-for="(error, index) in currentErrors"
+      :key="index"
+    >
       {{ error }}
     </p>
     <ul class="cards-list">
@@ -78,7 +82,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["cardList", "componentNames"]),
+    ...mapState(["cardList", "componentNames", "errors"]),
     isEmptyInputString() {
       return this.inputString == "";
     },
@@ -99,13 +103,14 @@ export default {
     },
     currentErrors() {
       let errorArray = [];
-      if (!this.isEmptyInputString) {
-        if (!this.isTwoWords) {
-          errorArray.push("Строка должна содержать два слова!");
-        }
-        if (!this.stringContainOnlyLetters) {
-          errorArray.push("Строка должна содержать только буквы");
-        }
+      if (this.isEmptyInputString) {
+        return;
+      }
+      if (!this.isTwoWords) {
+        errorArray.push(this.errors.errorNotTwoWords);
+      }
+      if (!this.stringContainOnlyLetters) {
+        errorArray.push(this.errors.errorNotLetters);
       }
       return errorArray;
     },

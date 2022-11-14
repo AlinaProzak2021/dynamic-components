@@ -15,8 +15,8 @@
 <script>
 import { mapState } from "vuex";
 import ProvideTheme from "./ThemeProvider.vue";
-import OneApplicationLeft from "./ApplicationOne.vue";
-import TwoApplicationLeft from "./ApplicationTwo.vue";
+import OneApplicationLeft from "./apps/ApplicationOne.vue";
+import TwoApplicationLeft from "./apps/ApplicationTwo.vue";
 import Configuration from "./ConfigurationApps.vue";
 import SettingApp from "./SettingsApp.vue";
 import StartLeftApplication from "./StartLeftApp.vue";
