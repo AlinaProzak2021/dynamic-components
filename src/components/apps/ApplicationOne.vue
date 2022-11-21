@@ -1,11 +1,6 @@
 <template>
   <div class="one-left-app">
-    <div
-      class="back-to-start-app"
-      @click="setLeftComponentName(componentNames.playleftApp)"
-    >
-      <img class="back-img" src="../../../resources/back.png" alt="" />
-    </div>
+    <BackToApp :backToApp="backToStartLeftApp" />
     <div class="form-container">
       <form class="form-add" @submit.prevent="addCard(inputString)">
         <input
@@ -16,8 +11,8 @@
         />
         <button
           class="form-button"
-          :disabled="isEmptyInputString"
-          :class="{ form__button_allowed: isEmptyInputString == false }"
+          :disabled="!isInputValid"
+          :class="{ form__button_allowed: !isInputValid }"
         >
           Добавить
         </button>
@@ -40,7 +35,11 @@
 </template>
 <script>
 import { mapState, mapMutations } from "vuex";
+import BackToApp from "../BackButton.vue";
 export default {
+  components: {
+    BackToApp,
+  },
   data() {
     return {
       inputString: "",
@@ -48,11 +47,15 @@ export default {
   },
   methods: {
     ...mapMutations(["deleteCard", "setLeftComponentName", "addCardToList"]),
+    backToStartLeftApp() {
+      this.setLeftComponentName(this.componentNames.playleftApp);
+    },
     addCard(inputString) {
       if (!this.isInputValid) {
         return;
       }
       this.addCardToList(inputString);
+      this.clearInputField();
     },
     clearInputField() {
       this.inputString = "";
@@ -62,33 +65,36 @@ export default {
       return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     },
     // удаление пустых строк в строке
-    removeEmptyStrings(inputString) {
+    removeExtraSpaces(inputString) {
       return inputString.replace(/\s+/g, " ").trim();
     },
     //Преобразование строки в массив строк
     convertStringToArray(inputString) {
-      return this.removeEmptyStrings(inputString).split(" ");
+      return inputString.split(" ");
     },
     stringNormalization(inputString) {
-      let stringArray = this.convertStringToArray(inputString);
-      let normalizationString = [];
-      stringArray.forEach((stringArrayItem) => {
-        let lowered = stringArrayItem.toLowerCase();
+      let clearSring = this.removeExtraSpaces(inputString);
+      let stringsArray = this.convertStringToArray(clearSring);
+      let normalizedString = [];
+      stringsArray.forEach((stringsArrayItem) => {
+        let lowered = stringsArrayItem.toLowerCase();
         let capitalised = this.capitalize(lowered);
-        normalizationString.push(capitalised);
+        normalizedString.push(capitalised);
       });
-      return normalizationString.join(" ");
+      return normalizedString.join(" ");
     },
   },
 
   computed: {
     ...mapState(["cardList", "componentNames", "errors"]),
     isEmptyInputString() {
-      return this.inputString == "";
+      return this.inputString === "";
     },
     // Проверка на 2 слова
+    // <!-- Abba -->
     isTwoWords() {
-      return this.convertStringToArray(this.inputString).length === 2;
+      let matchesCount = this.inputString.match(/\S+/g) || [];
+      return matchesCount.length === 2;
     },
     // Проверка на запрещенные символы
     stringContainOnlyLetters() {
@@ -123,25 +129,8 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
-}
-.back-to-start-app {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-.back-to-start-app:hover {
-  transform: scale(var(--transform-scale));
-}
-.back-img {
-  pointer-events: none;
   width: 100%;
-  height: 100%;
-}
 
-.back-img:hover {
-  transform: scale(var(--transform-scale));
 }
 
 .form-add {
@@ -179,7 +168,10 @@ export default {
   background-color: var(--background-color-hover);
 }
 .form__button_allowed {
-  background-color: var(--background-color-hover);
+  background-color: var(--background-color-not-allowed);
+}
+.form__button_allowed:hover {
+  background-color: var(--background-color-not-allowed);
 }
 .form-isNotValid {
   justify-items: center;
@@ -285,7 +277,7 @@ export default {
     height: 20px;
   }
   .list-item {
-    width: 260px;
+    width: 180px;
     height: 20px;
     border: none;
     border-radius: 0;

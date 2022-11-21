@@ -1,13 +1,15 @@
 <template>
   <main class="main-app">
-    <div class="app-content">
+    <div class="flex-container">
       <section class="left-app">
         <KeepAlive>
           <component :is="currentLeftComponent"></component>
         </KeepAlive>
       </section>
       <section class="right-app">
-        <component :is="currentRightComponent"></component>
+        <KeepAlive>
+          <component :is="currentRightComponent"></component>
+        </KeepAlive>
       </section>
     </div>
   </main>
@@ -36,26 +38,20 @@ export default {
 </script>
 <style scoped>
 .main-app {
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
-.app-content {
+.flex-container {
   width: 80%;
   min-height: 80%;
   -webkit-box-shadow: 0px 4px 53px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 4px 53px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0px 4px 53px 2px rgba(34, 60, 80, 0.2);
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 .left-app,
@@ -63,40 +59,31 @@ export default {
   width: 50%;
   min-width: 350px;
   margin: 0 auto;
-  z-index: 2;
-}
-.left-app {
-  z-index: 3;
-}
-
-.left-app:hover,
-.right-app:hover {
-  outline: 2px solid var(--background-color-hover);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 50%;
 }
 .left-app {
   background-color: var(--background-color-left-app);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
 }
 .right-app {
   background-color: var(--background-color-right-app);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
 }
-@media (max-width: 768px) {
+
+@media (max-width: 960px) {
   .main-app {
     display: block;
   }
-  .app-content {
+  .flex-container {
     width: 100%;
+    min-height: 100%;
   }
   .left-app,
   .right-app {
-    margin: 0 auto;
+    width: 50%;
   }
 }
 </style>
-
- 

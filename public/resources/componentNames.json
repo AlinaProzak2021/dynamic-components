@@ -1,0 +1,18 @@
+{
+    "componentName": {
+        "playleftApp": "StartLeftApplication",
+        "configurationApp": "Configuration",
+        "oneApplication": "OneApplicationLeft",
+        "twoApplication": "TwoApplicationLeft",
+        "settingsApplication": "SettingApp"
+    },
+    "currentComponentNames": {
+        "currentLeftComponent": "StartLeftApplication",
+        "currentRightComponent": "Configuration"
+    },
+    "dynamicLeftComponent": "OneApplicationLeft",
+    "themes": {
+        "theme1": "theme1",
+        "theme2": "theme2"
+    }
+}

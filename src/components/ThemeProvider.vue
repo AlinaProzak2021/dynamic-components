@@ -10,6 +10,7 @@ export default {
   },
   watch: {
     selectedTheme() {
+      //Abba
       this.setCurrentTheme(this.selectedTheme);
     },
   },
@@ -27,31 +28,35 @@ export default {
   --background-color-left-app-element: #fffefb;
   --border-color-left-app: #8a2be2;
   --border-color-right-app: #8a2be2;
-  --transition-sec: 0.3s;
-  --transform-scale: 1.2;
   --text-color-error-message: #eb4034;
   --background-color-hover: dodgerblue;
   --text-color-button: white;
-  --transform-rotate: 45deg;
-  --negative-transform-rotate: -45deg;
+  --background-color-not-allowed: #a9a9a9;
 }
 .oppositeTheme {
-  --background-color-left-app: #40E0D0;
-  --background-color-right-app: #FFB6C1;
+  --background-color-left-app: #40e0d0;
+  --background-color-right-app: #ffb6c1;
   --color-text-left-app: black;
   --color-text-title-right-app: black;
   --color-text-right-app: black;
   --color-text-right-app-hover: white;
-  --background-color-right-app-element: white;
+  --background-color-right-app-element: #87CEFA;
   --background-color-left-app-element: #fffefb;
-  --border-color-left-app:  #48D1CC;
-  --border-color-right-app: #1E90FF;
-  --transition-sec: 0.3s;
-  --transform-scale: 1.2;
+  --border-color-left-app: #8a2be2;
+  --border-color-right-app: #1e90ff;
   --text-color-error-message: #eb4034;
-  --background-color-hover: #40E0D0;
+  --background-color-hover: #1e90ff;
   --text-color-button: white;
-  --transform-rotate: 45deg;
-  --negative-transform-rotate: -45deg;
+  --background-color-not-allowed: #a9a9a9;
+}
+.defultfont {
+  --font-family: "Montserrat", sans-serif;
+}
+.Arial {
+  --font-family: "Sono", sans-serif;
+}
+
+.Times{
+  --font-family: "Times New Roman", sans-serif  
 }
 </style>

@@ -4,6 +4,8 @@ import {
 import themes from "../json resources/themes.json"
 import componentNames from "../json resources/componentNames.json"
 import errors from "../json resources/errors.json"
+import fonts from "../json resources/fonts.json"
+import selectOptionsTwoApp from "../json resources/selectOptions.json"
 const store = createStore({
     state() {
         return {
@@ -14,8 +16,11 @@ const store = createStore({
             dynamicLeftComponent: componentNames.oneApplication,
             themes,
             currentTheme: themes.defaultTheme,
-            selectedTheme: '',
-            errors
+            selectedTheme: '',//Abba
+            errors,
+            fonts,
+            selectedFont: fonts.DefultFont, 
+            selectOptionsTwoApp: selectOptionsTwoApp.selectOptions
         }
     },
     mutations: {
@@ -39,6 +44,9 @@ const store = createStore({
         },
         setSelectedTheme(state, selectedTheme) {
             state.selectedTheme = selectedTheme
+        },
+        setSelectedFont(state, selectedFont) {
+            state.selectedFont = selectedFont
         }
     }
 })

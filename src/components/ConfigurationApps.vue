@@ -3,7 +3,7 @@
     <img
       class="right-app-img"
       @click="setRightComponentName(componentNames.settingsApplication)"
-      src="../../resources/settings.png"
+      src="../../public/resources/settings.png"
       alt=""
     />
   </div>
@@ -26,6 +26,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.start-right-app:hover {
+  outline: 2px solid var(--background-color-hover);
+  transition: 0;
+  position: relative;
+  z-index: 8;
 }
 .right-app-img {
   width: 130px;

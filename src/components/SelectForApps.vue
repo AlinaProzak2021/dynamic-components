@@ -1,22 +1,20 @@
 <template>
-  <div class="v-select">
-    <div
-      class="select-container"
-      @click="areOptionsVisible = !areOptionsVisible"
-    >
+  <div class="custom-select">
+    <!-- Abba header -->
+    <div class="select-header" @click="areOptionsVisible = !areOptionsVisible">
       <p class="selected-option">
         {{ selectedOption }}
       </p>
-      <div class="arrow"></div>
+      <div class="arrow-drop-down"></div>
     </div>
-    <div class="options" v-if="areOptionsVisible">
+    <div class="list-options" v-if="areOptionsVisible">
       <p
-        class="option"
-        v-for="option in options"
-        :key="option.id"
-        @click="selectOption(option)"
+        class="option-item"
+        v-for="optionItem in options"
+        :key="optionItem.id"
+        @click="selectOption(optionItem)"
       >
-        {{ option.title }}
+        {{ optionItem.title }}
       </p>
     </div>
   </div>
@@ -41,15 +39,15 @@ export default {
     };
   },
   methods: {
-    selectOption(option) {
-      this.$emit("select", option);
+    selectOption(optionItem) {
+      this.$emit("select", optionItem);
       this.areOptionsVisible = false;
     },
   },
 };
 </script>
-<style>
-.v-select {
+<style scoped>
+.custom-select {
   width: 300px;
   position: relative;
   height: 36px;
@@ -64,7 +62,7 @@ export default {
   cursor: pointer;
   margin: 0 auto;
 }
-.select-container {
+.select-header {
   width: 100%;
   height: 100%;
   display: flex;
@@ -72,18 +70,18 @@ export default {
   align-items: center;
   padding-left: 20px;
 }
-.arrow {
+.arrow-drop-down {
   width: 8px;
   height: 7px;
   border-top: 1px solid var(--border-color-right-app);
   border-right: 1px solid var(--border-color-right-app);
-  transform: rotate(calc(var(--transform-rotate)*3));
+  transform: rotate(calc(var(--transform-rotate) * 3));
   margin-right: 35px;
 }
 .selected-option {
   width: 100%;
 }
-.options {
+.list-options {
   position: absolute;
   top: 40px;
   background-color: var(--background-color-right-app-element);
@@ -93,27 +91,27 @@ export default {
   text-align: center;
   width: 300px;
 }
-.option {
+.option-item {
   line-height: 26px;
 }
-.option:hover {
+.option-item:hover {
   background: var(--border-color-right-app);
   color: var(--color-text-right-app-hover);
   transition-duration: var(--transition-sec);
 }
 @media (max-width: 768px) {
-  .v-select {
+  .custom-select {
     width: 90%;
     height: 30px;
   }
-  .options {
+  .list-options {
     width: 100%;
   }
-  .option {
+  .option-item {
     line-height: 26px;
     font-size: 12px;
   }
-  .select-container {
+  .select-header {
     width: 90%;
   }
 }

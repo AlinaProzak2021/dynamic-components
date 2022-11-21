@@ -1,11 +1,7 @@
 <template>
   <div class="configuration-container">
-    <div
-      class="back-to-start-app"
-      @click="setRightComponentName(componentNames.configurationApp)"
-    >
-      <img class="back-img" src="../../resources/back.png" alt="" />
-    </div>
+    <!-- Abba -->
+    <BackToApp :backToApp="backToStartSettings" />
     <div class="select-settings">
       <h3 class="configuration-title">Вы можете выбрать тему и приложение</h3>
       <section class="configuration-select">
@@ -24,17 +20,37 @@
           @select="changeApp"
         />
       </section>
+      <section class="configuration-select">
+        <p class="configuration-subtitle">Выберите шрифт</p>
+        <select
+          name="select"
+          v-model="selectOptionFont"
+          @change="changeAppFont"
+        >
+          <option
+            selected
+            :value="font"
+            v-for="(font, index) in fonts"
+            :key="index"
+          >
+            {{ font }}
+          </option>
+        </select>
+      </section>
     </div>
   </div>
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
-import optionsThemes from "../../dataset.js";
-import optionsApps from "../../dataset.js";
+import optionsThemes from "../../dataset.json";
+import optionsApps from "../../dataset.json";
 import selectOption from "./SelectForApps.vue";
+import BackToApp from "./BackButton.vue";
+import appFonts from "../../json resources/fonts.json";
 export default {
   components: {
     selectOption,
+    BackToApp,
   },
   data() {
     return {
@@ -44,10 +60,11 @@ export default {
       selectedOptionApp: "Приложение 1",
       selectedOptionAppValue: "",
       selectedOptionThemeValue: "",
+      selectOptionFont: appFonts.DefultFont,
     };
   },
   computed: {
-    ...mapState(["componentNames", "selectedTheme", "themes"]),
+    ...mapState(["componentNames", "selectedTheme", "themes", "fonts"]),
   },
   watch: {
     selectedOptionAppValue() {
@@ -58,11 +75,7 @@ export default {
       }
     },
     selectedOptionThemeValue() {
-      if (this.selectedOptionThemeValue == 0) {
-        this.setSelectedTheme(this.themes.defaultTheme);
-      } else {
-        this.setSelectedTheme(this.themes.oppositeTheme);
-      }
+      
     },
   },
   methods: {
@@ -70,7 +83,11 @@ export default {
       "setDynamicLeftComponent",
       "setRightComponentName",
       "setSelectedTheme",
+      "setSelectedFont",
     ]),
+    backToStartSettings(){
+      this.setRightComponentName(this.componentNames.configurationApp)
+    },
     changeAppsTheme(option) {
       this.selectedOptionTheme = option.title;
       this.selectedOptionThemeValue = option.id;
@@ -79,12 +96,15 @@ export default {
       this.selectedOptionApp = option.title;
       this.selectedOptionAppValue = option.id;
     },
+    changeAppFont() {
+      this.setSelectedFont(this.selectOptionFont);
+    },
   },
 };
 </script>
 <style scoped>
 .configuration-container {
-  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -106,11 +126,31 @@ export default {
 .configuration-select {
   margin: 0 auto;
   width: 300px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .configuration-subtitle {
   text-align: center;
   margin-bottom: 15px;
+}
+select {
+  width: 300px;
+  height: 36px;
+  background: var(--background-color-right-app-element);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--color-text-right-app);
+  cursor: pointer;
+  margin: 0 auto;
+  outline: none;
+  border: none;
+  padding-left: 15px;
 }
 @media (max-width: 1024px) {
   .select-settings {
